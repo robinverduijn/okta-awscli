@@ -24,6 +24,7 @@ base-url = <your_okta_org>.okta.com
 username = <your_okta_username>
 password = <your_okta_password> # Only save your password if you know what you are doing!
 factor = <your_preferred_mfa_factor> # Current choices are: GOOGLE or OKTA
+role = <your_preferred_aws_role> # This with vary with your AWS environment
 ```
 
 Note: Multiple Okta profiles are supported, but if none are specified, then `default` will be used.
