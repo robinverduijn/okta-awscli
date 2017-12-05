@@ -9,9 +9,12 @@ import click
 def get_credentials(aws_auth, okta_profile, profile, verbose, logger):
     """ Gets credentials from Okta """
     okta = OktaAuth(okta_profile, verbose, logger)
-    app_name, assertion = okta.get_assertion()
+    app_name, assertion, selected_role = okta.get_assertion()
     app_name = app_name.replace(" ", "")
-    role = aws_auth.choose_aws_role(assertion)
+    if selected_role:
+        role = selected_role
+    else:
+        role = aws_auth.choose_aws_role(assertion)
     principal_arn, role_arn = role
 
     token = aws_auth.get_sts_token(role_arn, principal_arn, assertion)

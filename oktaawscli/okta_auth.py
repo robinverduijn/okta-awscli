@@ -17,6 +17,7 @@ class OktaAuth(object):
         profile = okta_profile
         self.logger = logger
         self.factor = ""
+        self.role = ""
         if parser.has_option(profile, 'base-url'):
             self.base_url = "https://%s" % parser.get(profile, 'base-url')
             self.logger.info("Authenticating to: %s" % self.base_url)
@@ -36,6 +37,10 @@ class OktaAuth(object):
         if parser.has_option(profile, 'factor'):
             self.factor = parser.get(profile, 'factor')
             self.logger.debug("Setting MFA factor to %s" % self.factor)
+
+        if parser.has_option(profile, 'role'):
+            self.role = parser.get(profile, 'role')
+            self.logger.debug("Setting AWS role to %s" % self.role)
 
         self.verbose = verbose
 
@@ -174,4 +179,4 @@ class OktaAuth(object):
         headers = {'Cookie': sid}
         resp = requests.get(app_link, headers=headers)
         assertion = self.get_saml_assertion(resp)
-        return app_name, assertion
+        return app_name, assertion, self.role
