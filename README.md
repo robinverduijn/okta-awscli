@@ -21,6 +21,7 @@ base-url = <your_okta_org>.okta.com
 username = <your_okta_username>
 password = <your_okta_password> # Only save your password if you know what you are doing!
 factor = <your_preferred_mfa_factor> # Current choices are: GOOGLE or OKTA
+factor-type = <your_preferred_mfa_type> # Set to "push" to enable Okta push notifications, or leave out
 ```
 
 ## Supported Features

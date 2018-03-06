@@ -40,6 +40,10 @@ class OktaAuth(object):
             self.factor = parser.get(profile, 'factor')
             self.logger.debug("Setting MFA factor to %s" % self.factor)
 
+        if parser.has_option(profile, 'factor-type'):
+            self.factor_type = parser.get(profile, 'factor-type')
+            self.logger.debug("Setting MFA factor type to %s" % self.factor_type)
+
         self.verbose = verbose
 
     def primary_auth(self):
@@ -105,7 +109,8 @@ class OktaAuth(object):
 
                 if self.factor:
                     if self.factor == factor_provider:
-                        factor_choice = index
+                        factor_choice = index + 1
+                        self.logger.info("Using factor type: %s" % factor_name)
                         self.logger.info("Using pre-selected factor choice \
                                          from ~/.okta-aws")
                         break
